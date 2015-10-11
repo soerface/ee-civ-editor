@@ -42,13 +42,22 @@ angular.module('eeCivEditorApp')
         delete $scope.selectedBonuses[category];
       }
     };
+    $scope.getExtraCosts = function(categoryName) {
+      var category = $scope.selectedBonuses[categoryName];
+      if (category === undefined) {
+        return 0;
+      }
+      return category.length * $scope.civInfo['categories'][categoryName].category_cost;
+    };
+    $scope.getCosts = function(bonus, categoryName) {
+      return bonus.costs + $scope.getExtraCosts(categoryName)
+    }
   })
   .directive('focusMe', function() {
     return {
       link: function(scope, element, attrs) {
         scope.$watch(attrs.focusMe, function(value) {
           if(value === true) {
-            console.log('value=',value);
             element[0].focus();
             scope[attrs.focusMe] = false;
           }

@@ -68,7 +68,7 @@ body {
     bottom: -15rem;
   }
   button {
-    margin: 1.5rem 0;
+    margin: 1rem 0;
   }
 }
 
@@ -91,8 +91,8 @@ body {
         background-color: $brand-primary;
         color: #fff;
         // cost column
-        &:last-child {
-          width: 6rem;
+        &:nth-child(2) {
+          width: 8rem;
         }
       }
     }

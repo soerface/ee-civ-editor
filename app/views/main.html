@@ -46,18 +46,22 @@
       <thead>
         <tr>
           <th>Available Bonuses</th>
-          <th>Cost</th>
+          <th class="text-right">Cost</th>
         </tr>
       </thead>
       <tbody ng-repeat="category in civInfo[currentGame]">
         <tr ng-click="toggleAvailableCategory(category)">
           <th>{{ category }}</th>
-          <th ng-class="{'text-danger': false}">+0</th>
+          <th class="text-right">{{ civInfo['categories'][category].category_cost }}</th>
         </tr>
         <tr ng-repeat="bonus in civInfo['categories'][category].bonuses" ng-show="civInfo['categories'][category].show"
             ng-click="addBonus(category, bonus)">
           <td>{{ bonus.name }}</td>
-          <td>{{ bonus.costs }}</td>
+          <td class="text-right">
+            {{ bonus.costs }}
+            <strong ng-if="getExtraCosts(category) > 0" class="text-danger">+ {{ getExtraCosts(category) }}</strong>
+            <span ng-if="getExtraCosts(category) > 0">({{ getCosts(bonus, category) }})</span>
+          </td>
         </tr>
       </tbody>
     </table>
