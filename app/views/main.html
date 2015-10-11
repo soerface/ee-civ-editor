@@ -1,4 +1,26 @@
-<div class="row bonuses">
+<div class="row intro" ng-hide="currentGame">
+  <div class="jumbotron">
+    <h1>EE Civilization Editor</h1>
+
+    <p class="lead">
+      Simply create your Empire Earth Civilization, including selecting a power multiple times!
+    </p>
+
+    <p class="small">Do you want to create a civ for “<em>Empire Earth</em>” or for “<em>Empire Earth: The Art Of Conquest?</em>”</p>
+
+    <p class="text-center">
+      <button class="btn btn-lg btn-success" ng-click="selectGame('ee')">Just EE</button>
+      <button class="btn btn-lg btn-success" ng-click="selectGame('aoe')">EE with AoE</button>
+    </p>
+
+  </div>
+</div>
+<div class="row title" ng-show="currentGame">
+  <div class="col-xs-12">
+    <input focus-me="focusCivName" type="text" ng-model="civilizationName" placeholder="Unnamed Civilization">
+  </div>
+</div>
+<div class="row bonuses" ng-show="currentGame">
   <div class="col-xs-6">
     <table class="table table-condensed table-hover header-fixed">
       <thead>
@@ -42,10 +64,11 @@
   </div>
 </div>
 
-<div class="footer">
+<div class="footer" ng-show="currentGame">
   <div class="container">
     <div class="col-xs-6">
       <p><strong>Total Points Spent <span class="pull-right">0</span></strong></p>
+
       <p><strong>Points Left <span class="pull-right">100</span></strong></p>
     </div>
     <div class="col-xs-6">
