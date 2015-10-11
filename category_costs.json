@@ -1,43 +1,29 @@
 {
-  "Special Powers": 15,
-  "Aircraft": {
-    "Bombers": 2,
-    "Fighters": 2,
-    "Helicopters": 2
-  },
-  "Archers": {
-    "Foot": 4
-  },
-  "Cavalery": {
-    "Ranged": 4,
-    "Spear (Melee)": 3,
-    "Sword": 3
-  },
-  "Citizens and Fishing Boats": 2,
-  "Civ": {
-    "Building, Walls and Towers": 3,
-    "Economy": 6,
-    "General": 0
-  },
-  "Cybers": {
-    "Combat": 4,
-    "Ultra": 2
-  },
-  "Field Cannon and Anti-Tank Guns": 4,
-  "Infantery": {
-    "Ranged": 5,
-    "Spear (Melee)": 3,
-    "Sword": 3
-  },
-  "Religion": {
-    "Priests": 2,
-    "Prophets": 2
-  },
-  "Ships": {
-    "Battleships and Carriers": 3,
-    "Frigates and Cruisers": 3,
-    "Galleys, Transports and Subs": 3
-  },
-  "Siege Weapons and Mobile AA": 2,
-  "Tanks": 4
+  "Special Powers": {"category_cost": 15, "powers": []},
+  "Aircraft - Bombers": {"category_cost": 2, "powers": []},
+  "Aircraft - Fighters": {"category_cost": 2, "powers": []},
+  "Aircraft - Helicopters": {"category_cost": 2, "powers": []},
+  "Archers - Foot": {"category_cost": 4, "powers": []},
+  "Cavalry - Ranged": {"category_cost": 4, "powers": []},
+  "Cavalry - Spear (Melee)": {"category_cost": 3, "powers": []},
+  "Cavalry - Sword": {"category_cost": 3, "powers": []},
+  "Citizens and Fishing Boats": {"category_cost": 2, "powers": []},
+  "Civ - Buildings, Walls and Towers": {"category_cost": 3, "powers": []},
+  "Civ - Economy": {"category_cost": 6, "powers": []},
+  "Civ - General": {"category_cost": 0, "powers": []},
+  "Cybers - Combat": {"category_cost": 4, "powers": []},
+  "Cybers - Ultra": {"category_cost": 2, "powers": []},
+  "Field Cannon and Anti-Tank Guns": {"category_cost": 4, "powers": []},
+  "Infantry - Ranged": {"category_cost": 5, "powers": []},
+  "Infantry - Spear (Melee)": {"category_cost": 3, "powers": []},
+  "Infantry - Sword": {"category_cost": 3, "powers": []},
+  "Religion - Priests": {"category_cost": 2, "powers": []},
+  "Religion - Prophets": {"category_cost": 2, "powers": []},
+  "Ships - Battleships and Carriers": {"category_cost": 3, "powers": []},
+  "Ships - Frigates and Cruisers": {"category_cost": 3, "powers": []},
+  "Ships - Galleys, Transports and Subs": {"category_cost": 3, "powers": []},
+  "Siege Weapons and Mobile AA": {"category_cost": 2, "powers": []},
+  "Space Fighters": {"category_cost": 4, "powers": []},
+  "Spaceships": {"category_cost": 4, "powers": []},
+  "Tanks": {"category_cost": 4, "powers": []}
 }

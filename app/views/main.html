@@ -1,23 +1,43 @@
-<div class="jumbotron">
-  <h1>'Allo, 'Allo!</h1>
-  <p class="lead">
-    <img src="images/yeoman.png" alt="I'm Yeoman"><br>
-    Always a pleasure scaffolding your apps.
-  </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#/">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
-</div>
-
-<div class="row marketing">
-  <h4>HTML5 Boilerplate</h4>
-  <p>
-    HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.
-  </p>
-
-  <h4>Angular</h4>
-  <p>
-    AngularJS is a toolset for building the framework most suited to your application development.
-  </p>
-
-  <h4>Karma</h4>
-  <p>Spectacular Test Runner for JavaScript.</p>
+<div class="row bonuses">
+  <div class="col-xs-6">
+    <table class="table table-condensed table-hover header-fixed">
+      <thead>
+        <tr>
+          <th>Civilization Bonuses</th>
+          <th>Cost</th>
+        </tr>
+      </thead>
+      <tbody ng-repeat="category in civInfo[currentGame]">
+        <tr ng-if="selectedBonuses[category]">
+          <th>{{ category }}</th>
+          <th>0</th>
+        </tr>
+        <tr ng-repeat="bonus in selectedBonuses[category] track by $index" ng-click="removeBonus(category, bonus)">
+          <td>{{ bonus.name }}</td>
+          <td>{{ bonus.costs }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-xs-6">
+    <table class="table table-condensed table-hover header-fixed">
+      <thead>
+        <tr>
+          <th>Available Bonuses</th>
+          <th>Cost</th>
+        </tr>
+      </thead>
+      <tbody ng-repeat="category in civInfo[currentGame]">
+        <tr ng-click="toggleAvailableCategory(category)">
+          <th>{{ category }}</th>
+          <th ng-class="{'text-danger': false}">+0</th>
+        </tr>
+        <tr ng-repeat="bonus in civInfo['categories'][category].bonuses" ng-show="civInfo['categories'][category].show"
+            ng-click="addBonus(category, bonus)">
+          <td>{{ bonus.name }}</td>
+          <td>{{ bonus.costs }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
