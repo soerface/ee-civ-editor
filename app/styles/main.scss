@@ -100,6 +100,9 @@ body {
       tr[ng-click] {
         cursor: pointer;
       }
+      td {
+        padding-left: 2rem;
+      }
     }
   }
 }
