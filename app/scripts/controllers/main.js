@@ -66,7 +66,6 @@ angular.module('eeCivEditorApp')
     $scope.getTotalCosts = function() {
       var sum = 0;
       for (var category in $scope.selectedBonuses) {
-        console.log(category);
         if ($scope.selectedBonuses.hasOwnProperty(category)) {
           sum += $scope.getSelectedCosts(category);
         }
@@ -76,6 +75,52 @@ angular.module('eeCivEditorApp')
     $scope.getPointsLeft = function() {
       return 100 - $scope.getTotalCosts();
     };
+    function getSelectedBonuses() {
+      var bonuses = [];
+      for (var category in $scope.selectedBonuses) {
+        if ($scope.selectedBonuses.hasOwnProperty(category)) {
+          // TODO: maybe implement lodash sometime...
+          for (var bonus in $scope.selectedBonuses[category]) {
+            if ($scope.selectedBonuses[category].hasOwnProperty(bonus)) {
+              bonuses.push($scope.selectedBonuses[category][bonus]);
+            }
+          }
+        }
+      }
+      return bonuses;
+    }
+    function generateBlob() {
+      var bonuses = getSelectedBonuses();
+      var byteArray = new Uint8Array(4 + $scope.civilizationName.length + 4 + bonuses.length * 4);
+      var byteArrayPos = 0;
+      byteArray[byteArrayPos] = $scope.civilizationName.length;
+      byteArrayPos += 4;
+      for (var x = 0; x < $scope.civilizationName.length; x++){
+        byteArray[byteArrayPos] = $scope.civilizationName.charCodeAt(x);
+        byteArrayPos += 1;
+      }
+
+      byteArray[byteArrayPos] = bonuses.length;
+      byteArrayPos += 4;
+      for (var bonus in bonuses) {
+        if (bonuses.hasOwnProperty(bonus)) {
+          byteArray[byteArrayPos] = parseInt(bonuses[bonus].hexcode.substr(0, 2), 16);
+          byteArrayPos++;
+          byteArray[byteArrayPos] = parseInt(bonuses[bonus].hexcode.substr(2, 2), 16);
+          byteArrayPos++;
+          byteArrayPos += 2
+        }
+      }
+      return new Blob([byteArray], {type: "application/octet-stream"});
+    }
+    $scope.downloadCiv = function() {
+      var a = document.createElement('a');
+      var blob = generateBlob();
+      a.href = window.URL.createObjectURL(blob);
+      a.target = '_blank';
+      a.download = $scope.civilizationName + '.civ';
+      a.click();
+    }
   })
   .directive('focusMe', function() {
     return {
