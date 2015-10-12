@@ -11,7 +11,7 @@ angular.module('eeCivEditorApp')
   .controller('MainCtrl', function ($scope, $http, $timeout) {
     $scope.selectedBonuses = {};
     $scope.civilizationName = '';
-    $http({method: 'GET', url: '/civ_info.json'}).success(function(data) {
+    $http({method: 'GET', url: 'civ_info.json'}).success(function(data) {
       $scope.civInfo = data;
     });
     $scope.selectGame = function(game) {
