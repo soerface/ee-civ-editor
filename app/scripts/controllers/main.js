@@ -11,7 +11,7 @@ angular.module('eeCivEditorApp')
   .controller('MainCtrl', function ($scope, $http, $timeout) {
     $scope.selectedBonuses = {};
     $scope.civilizationName = '';
-    $http({method: 'GET', url: '/civ_info.json'}).success(function(data, status, headers, config) {
+    $http({method: 'GET', url: '/civ_info.json'}).success(function(data) {
       $scope.civInfo = data;
     });
     $scope.selectGame = function(game) {
@@ -21,7 +21,7 @@ angular.module('eeCivEditorApp')
       function typingAnimation() {
         $scope.civilizationName = $scope.civilizationName + text[0];
         text = text.slice(1, text.length);
-        if (text.length > 0 && $scope.civilizationName.length + text.length == originalLength) {
+        if (text.length > 0 && $scope.civilizationName.length + text.length === originalLength) {
           $timeout(typingAnimation, 50 + Math.random() * 300);
         }
         $scope.focusCivName = true;
@@ -29,7 +29,7 @@ angular.module('eeCivEditorApp')
       $timeout(typingAnimation, 1000);
     };
     $scope.toggleAvailableCategory = function(category) {
-      $scope.civInfo['categories'][category].show = !$scope.civInfo['categories'][category].show
+      $scope.civInfo.categories[category].show = !$scope.civInfo.categories[category].show;
     };
     $scope.addBonus = function(category, bonus) {
       $scope.selectedBonuses[category] = $scope.selectedBonuses[category] || [];
@@ -48,10 +48,10 @@ angular.module('eeCivEditorApp')
         return 0;
       }
       n = n === undefined ? category.length : n;
-      return n * $scope.civInfo['categories'][categoryName].category_cost;
+      return n * $scope.civInfo.categories[categoryName].category_cost; // jshint ignore:line
     };
     $scope.getCosts = function(bonus, categoryName, n) {
-      return bonus.costs + $scope.getExtraCosts(categoryName, n)
+      return bonus.costs + $scope.getExtraCosts(categoryName, n);
     };
     $scope.getSelectedCosts = function(categoryName) {
       var category = $scope.selectedBonuses[categoryName];
@@ -108,10 +108,10 @@ angular.module('eeCivEditorApp')
           byteArrayPos++;
           byteArray[byteArrayPos] = parseInt(bonuses[bonus].hexcode.substr(2, 2), 16);
           byteArrayPos++;
-          byteArrayPos += 2
+          byteArrayPos += 2;
         }
       }
-      return new Blob([byteArray], {type: "application/octet-stream"});
+      return new Blob([byteArray], {type: 'application/octet-stream'});
     }
     $scope.downloadCiv = function() {
       var a = document.createElement('a');
@@ -120,7 +120,7 @@ angular.module('eeCivEditorApp')
       a.target = '_blank';
       a.download = $scope.civilizationName + '.civ';
       a.click();
-    }
+    };
   })
   .directive('focusMe', function() {
     return {
