@@ -42,16 +42,40 @@ angular.module('eeCivEditorApp')
         delete $scope.selectedBonuses[category];
       }
     };
-    $scope.getExtraCosts = function(categoryName) {
+    $scope.getExtraCosts = function(categoryName, n) {
       var category = $scope.selectedBonuses[categoryName];
       if (category === undefined) {
         return 0;
       }
-      return category.length * $scope.civInfo['categories'][categoryName].category_cost;
+      n = n === undefined ? category.length : n;
+      return n * $scope.civInfo['categories'][categoryName].category_cost;
     };
-    $scope.getCosts = function(bonus, categoryName) {
-      return bonus.costs + $scope.getExtraCosts(categoryName)
-    }
+    $scope.getCosts = function(bonus, categoryName, n) {
+      return bonus.costs + $scope.getExtraCosts(categoryName, n)
+    };
+    $scope.getSelectedCosts = function(categoryName) {
+      var category = $scope.selectedBonuses[categoryName];
+      var sum = 0;
+      for (var bonus in category) {
+        if (category.hasOwnProperty(bonus)) {
+          sum += $scope.getCosts(category[bonus], categoryName, bonus);
+        }
+      }
+      return sum;
+    };
+    $scope.getTotalCosts = function() {
+      var sum = 0;
+      for (var category in $scope.selectedBonuses) {
+        console.log(category);
+        if ($scope.selectedBonuses.hasOwnProperty(category)) {
+          sum += $scope.getSelectedCosts(category);
+        }
+      }
+      return sum;
+    };
+    $scope.getPointsLeft = function() {
+      return 100 - $scope.getTotalCosts();
+    };
   })
   .directive('focusMe', function() {
     return {

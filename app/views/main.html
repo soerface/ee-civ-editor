@@ -32,11 +32,15 @@
       <tbody ng-repeat="category in civInfo[currentGame]">
         <tr ng-if="selectedBonuses[category]">
           <th>{{ category }}</th>
-          <th>0</th>
+          <th class="text-right">{{ getSelectedCosts(category) }}</th>
         </tr>
         <tr ng-repeat="bonus in selectedBonuses[category] track by $index" ng-click="removeBonus(category, bonus)">
           <td>{{ bonus.name }}</td>
-          <td>{{ bonus.costs }}</td>
+          <td class="text-right">
+            {{ bonus.costs }}
+            <strong ng-if="getExtraCosts(category, $index) > 0" class="text-danger">+ {{ getExtraCosts(category, $index) }}</strong>
+            <span ng-if="getExtraCosts(category, $index) > 0">({{ getCosts(bonus, category, $index) }})</span>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -71,9 +75,15 @@
 <div class="footer" ng-show="currentGame">
   <div class="container">
     <div class="col-xs-6">
-      <p><strong>Total Points Spent <span class="pull-right">0</span></strong></p>
+      <p>
+        <strong>Total Points Spent
+        <span class="pull-right" ng-class="{'text-danger': getTotalCosts() > 100, 'text-success': getTotalCosts() === 100}">{{ getTotalCosts() }}</span></strong>
+      </p>
 
-      <p><strong>Points Left <span class="pull-right">100</span></strong></p>
+      <p>
+        <strong>Points Left
+        <span class="pull-right" ng-class="{'text-danger': getPointsLeft() < 0, 'text-success': getPointsLeft() === 0}">{{ getPointsLeft() }}</span></strong>
+      </p>
     </div>
     <div class="col-xs-6">
       <button class="btn btn-success btn-lg pull-right">Download Civilization</button>
