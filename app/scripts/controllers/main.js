@@ -8,14 +8,21 @@
  * Controller of the eeCivEditorApp
  */
 angular.module('eeCivEditorApp')
-  .controller('MainCtrl', function ($scope, $http, $timeout) {
-    $scope.selectedBonuses = {};
-    $scope.civilizationName = '';
+  .controller('MainCtrl', function ($scope, $rootScope, $http, $timeout) {
+    $scope.selectedBonuses = JSON.parse(localStorage.getItem('selectedBonuses')) || {};
+    $scope.currentGame = localStorage.getItem('currentGame');
+    $scope.civInfo = JSON.parse(localStorage.getItem('civInfo'));
+    $scope.civilizationName = localStorage.getItem('civName') || '';
+    $scope.$watch('civilizationName', function(value) {
+      localStorage.setItem('civName', value);
+    });
     $http({method: 'GET', url: 'civ_info.json'}).success(function(data) {
       $scope.civInfo = data;
+      localStorage.setItem('civInfo', JSON.stringify(data));
     });
     $scope.selectGame = function(game) {
       $scope.currentGame = game;
+      localStorage.setItem('currentGame', $scope.currentGame);
       var text = 'Unnamed Civilization';
       var originalLength = text.length;
       function typingAnimation() {
@@ -34,6 +41,7 @@ angular.module('eeCivEditorApp')
     $scope.addBonus = function(category, bonus) {
       $scope.selectedBonuses[category] = $scope.selectedBonuses[category] || [];
       $scope.selectedBonuses[category].push(bonus);
+      localStorage.setItem('selectedBonuses', JSON.stringify($scope.selectedBonuses));
     };
     $scope.removeBonus = function(category, bonus) {
       var index = $scope.selectedBonuses[category].indexOf(bonus);
@@ -41,6 +49,7 @@ angular.module('eeCivEditorApp')
       if ($scope.selectedBonuses[category].length === 0) {
         delete $scope.selectedBonuses[category];
       }
+      localStorage.setItem('selectedBonuses', $scope.selectedBonuses);
     };
     $scope.getExtraCosts = function(categoryName, n) {
       var category = $scope.selectedBonuses[categoryName];
