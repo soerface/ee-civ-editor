@@ -58,8 +58,10 @@
           <th>{{ category }}</th>
           <th class="text-right">{{ civInfo['categories'][category].category_cost }}</th>
         </tr>
-        <tr ng-repeat="bonus in civInfo['categories'][category].bonuses" ng-show="civInfo['categories'][category].show"
-            ng-click="addBonus(category, bonus)">
+        <tr ng-repeat="bonus in civInfo['categories'][category].bonuses"
+            ng-show="civInfo['categories'][category].show"
+            ng-click="addBonus(category, bonus)"
+            ng-class="{'too-expensive': getCosts(bonus, category) > getPointsLeft()}">
           <td>{{ bonus.name }}</td>
           <td class="text-right">
             {{ bonus.costs }}

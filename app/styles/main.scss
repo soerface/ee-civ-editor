@@ -98,8 +98,17 @@ body {
       }
     }
     tbody {
-      tr[ng-click] {
-        cursor: pointer;
+      tr {
+        &[ng-click] {
+          cursor: pointer;
+        }
+        &.too-expensive {
+          background-color: $gray-lighter;
+          color: $text-muted;
+          .text-danger {
+            color: $text-muted;
+          }
+        }
       }
       td {
         padding-left: 2rem;
