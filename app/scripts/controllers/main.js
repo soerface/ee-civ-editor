@@ -9,16 +9,22 @@
  */
 angular.module('eeCivEditorApp')
   .controller('MainCtrl', function ($scope, $rootScope, $http, $timeout) {
-    $scope.selectedBonuses = JSON.parse(localStorage.getItem('selectedBonuses')) || {};
+    try {
+      $scope.selectedBonuses = JSON.parse(localStorage.getItem('selectedBonuses')) || {};
+    } catch(err) {
+      $scope.selectedBonuses = {};
+    }
     $scope.currentGame = localStorage.getItem('currentGame');
     $scope.civInfo = JSON.parse(localStorage.getItem('civInfo'));
+    if (!$scope.civInfo) {
+      $http({method: 'GET', url: 'civ_info.json'}).success(function (data) {
+        $scope.civInfo = data;
+        localStorage.setItem('civInfo', JSON.stringify(data));
+      });
+    }
     $scope.civilizationName = localStorage.getItem('civName') || '';
     $scope.$watch('civilizationName', function(value) {
       localStorage.setItem('civName', value);
-    });
-    $http({method: 'GET', url: 'civ_info.json'}).success(function(data) {
-      $scope.civInfo = data;
-      localStorage.setItem('civInfo', JSON.stringify(data));
     });
     $scope.selectGame = function(game) {
       $scope.currentGame = game;
@@ -123,12 +129,8 @@ angular.module('eeCivEditorApp')
       return new Blob([byteArray], {type: 'application/octet-stream'});
     }
     $scope.downloadCiv = function() {
-      var a = document.createElement('a');
       var blob = generateBlob();
-      a.href = window.URL.createObjectURL(blob);
-      a.target = '_blank';
-      a.download = $scope.civilizationName + '.civ';
-      a.click();
+      saveAs(blob, $scope.civilizationName + '.civ');
     };
   })
   .directive('focusMe', function() {
