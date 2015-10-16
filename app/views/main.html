@@ -10,14 +10,18 @@
 
     <p class="text-center">
       <button class="btn btn-lg btn-success" ng-click="selectGame('ee')">Just EE</button>
-      <button class="btn btn-lg btn-success" ng-click="selectGame('aoe')">EE with AoC</button>
+      <button class="btn btn-lg btn-success" ng-click="selectGame('aoc')">EE with AoC</button>
     </p>
 
   </div>
 </div>
 <div class="row title" ng-show="currentGame">
-  <div class="col-xs-12">
+  <div class="col-xs-10">
     <input focus-me="focusCivName" type="text" ng-model="civilizationName" placeholder="Unnamed Civilization">
+  </div>
+  <div class="col-xs-2">
+    <a class="pull-right" ng-click="currentGame = 'ee'" ng-hide="currentGame == 'ee'">With AoC</a>
+    <a class="pull-right" ng-click="currentGame = 'aoc'" ng-hide="currentGame == 'aoc'">Without AoC</a>
   </div>
 </div>
 <div class="row bonuses" ng-show="currentGame">
